@@ -22,14 +22,15 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = 'e7ydgbxmgtvq#lxdh=lg5ls=9ju#%gy1b8fv2w4s=2jrx&t+4!'
 
-# SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
 
-ALLOWED_HOSTS = []
+# SECURITY WARNING: don't run with debug turned on in production!
+DEBUG = False
+
+ALLOWED_HOSTS = ['127.0.0.1', 'localhost', 'testserver', '0.0.0.0']
 
 
 STATICFILES_DIRS = [
-    "/Projects/Deloitte/mini_assignment/todoproject/task/static",
+    "/mini_assignment/todoproject/task/static",
 ]
 
 # Application definition
