@@ -70,9 +70,9 @@
 		// note there's no DOM manipulation here at all.
 		methods: {
 
-			// pluralize: function (word, count) {
-			// 	return word + (count === 1 ? '' : 's');
-			// },
+			pluralize: function (word, count) {
+				return word + (count === 1 ? '' : 's');
+			},
 
 			getTodos: function () {
 				fetch('/api/task/')
