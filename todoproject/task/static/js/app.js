@@ -63,11 +63,7 @@
 		},
 
 		mounted () {
-			fetch('/api/task/')
-			.then(response => response.json())
-			.then((data) => {
-				this.todos = data;
-			})
+			this.getTodos();
 		},
 
 		// methods that implement data logic.
@@ -78,14 +74,31 @@
 			// 	return word + (count === 1 ? '' : 's');
 			// },
 
+			getTodos: function () {
+				fetch('/api/task/')
+				.then(response => response.json())
+				.then((data) => {
+					this.todos = data;
+				})
+			},
+
 			addTodo: function () {
 				var value = this.newTodo && this.newTodo.trim();
 				if (!value) {
 					return;
 				}
-				this.todos.push({ id: this.todos.length + 1, title: value, completed: false });
-				this.newTodo = '';
-				console.log(this.todos);
+				fetch('/api/task/', {
+					body: JSON.stringify({title: value, completed: false}),
+					method: "POST",
+					headers: {
+						"Content-Type": "application/json"
+					}
+				})
+				.then(() => {
+					this.getTodos();
+					this.newTodo = '';
+					console.log(this.todos);
+				})
 			},
 
 			removeTodo: function (todo) {
@@ -95,6 +108,8 @@
 				})
 				.then(() => {
 					this.todos.splice(index, 1);
+					console.log("todo id " + todo.id);
+					console.log("index " + index);
 				})
 			},
 
