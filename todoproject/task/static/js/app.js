@@ -97,7 +97,6 @@
 				.then(() => {
 					this.getTodos();
 					this.newTodo = '';
-					console.log(this.todos);
 				})
 			},
 
@@ -108,8 +107,6 @@
 				})
 				.then(() => {
 					this.todos.splice(index, 1);
-					console.log("todo id " + todo.id);
-					console.log("index " + index);
 				})
 			},
 
@@ -145,6 +142,21 @@
 			},
 
 			removeCompleted: function () {
+				//this.todos = filters.active(this.todos);
+				console.log(this.todos);
+				var completedTasks = filters.completed(this.todos);
+				var completedTaskID = completedTasks.map(function(todo) {
+					return todo.id;
+				});
+				var i;
+				for (i = 0; i < completedTasks.length; i++) {
+					fetch('/api/task/' + completedTasks[i].id, {
+						method: "DELETE"
+					})
+					.then(() => {
+						
+					})
+				}
 				this.todos = filters.active(this.todos);
 			}
 		},
