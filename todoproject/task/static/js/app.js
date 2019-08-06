@@ -85,6 +85,7 @@
 				}
 				this.todos.push({ id: this.todos.length + 1, title: value, completed: false });
 				this.newTodo = '';
+				console.log(this.todos);
 			},
 
 			removeTodo: function (todo) {
@@ -111,6 +112,16 @@
 				if (!todo.title) {
 					this.removeTodo(todo);
 				}
+				fetch('/api/task/' + todo.id +'/', {
+					body: JSON.stringify(todo),
+					method: "PUT",
+					headers: {
+						"Content-Type": "application/json"
+					}
+				})
+				.then(() => {
+
+				})
 			},
 
 			cancelEdit: function (todo) {
