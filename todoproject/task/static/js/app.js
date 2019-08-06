@@ -27,7 +27,7 @@
 
 		// app initial state
 		data: {
-			todos: todoStorage.fetch(),
+			todos: [],
 			newTodo: '',
 			editedTodo: null,
 			visibility: 'all'
@@ -62,13 +62,21 @@
 			}
 		},
 
+		mounted () {
+			fetch('/api/task/')
+			.then(response => response.json())
+			.then((data) => {
+				this.todos = data;
+			})
+		},
+
 		// methods that implement data logic.
 		// note there's no DOM manipulation here at all.
 		methods: {
 
-			pluralize: function (word, count) {
-				return word + (count === 1 ? '' : 's');
-			},
+			// pluralize: function (word, count) {
+			// 	return word + (count === 1 ? '' : 's');
+			// },
 
 			addTodo: function () {
 				var value = this.newTodo && this.newTodo.trim();
@@ -81,7 +89,12 @@
 
 			removeTodo: function (todo) {
 				var index = this.todos.indexOf(todo);
-				this.todos.splice(index, 1);
+				fetch('/api/task/' + todo.id, {
+					method: "DELETE"
+				})
+				.then(() => {
+					this.todos.splice(index, 1);
+				})
 			},
 
 			editTodo: function (todo) {
