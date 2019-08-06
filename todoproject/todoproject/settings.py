@@ -28,6 +28,10 @@ DEBUG = True
 ALLOWED_HOSTS = []
 
 
+STATICFILES_DIRS = [
+    "/Projects/Deloitte/mini_assignment/todoproject/task/static",
+]
+
 # Application definition
 
 INSTALLED_APPS = [
